@@ -8,7 +8,8 @@
     "@cap-js/sqlite": "^2"
   },
   "scripts": {
-    "start": "cds-serve"
+    "start": "cds-serve",
+    "debug": "cds watch --inspect"
   },
   "private": true,
   "cds": {

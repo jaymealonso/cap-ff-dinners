@@ -9,6 +9,6 @@ service CatalogService @(odata: '/admin') {
     entity Events as projection on my.Events;
 
     @requires: 'admin'
-    action createEventGroups(date: Date not null, time: Time);
+    action createEventGroups(date: Date not null, time: Time not null);
 
 }
