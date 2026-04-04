@@ -2,9 +2,8 @@ using {
     jan.ff.dinner.Users        as Users,
     jan.ff.dinner.Events       as Events,
     jan.ff.dinner.Users_Events as Users_Events,
-    jan.ff.dinner.Countries    as Countries
+    jan.ff.dinner.Countries    as Countries,
 } from '../../db/schema';
-
 
 annotate Countries with @(
 
@@ -28,7 +27,7 @@ annotate Users with @(
             ID,
             name,
             email,
-            gender
+            gender,
         ],
         LineItem       : [
             {Value: name},
@@ -94,14 +93,18 @@ annotate Events with @(
             TypeNamePlural: '{i18n>Events}',
         },
 
-
         SelectionFields: [
             title,
             date,
-            id_dinner
+            is_dinner
         ],
 
         LineItem       : [
+            {
+                $Type : 'UI.DataFieldForAction',
+                Label : 'Create Groups',
+                Action: 'CatalogService.EntityContainer/createEventGroups',
+            },
             {Value: title},
             {Value: date},
             {Value: is_dinnner},
