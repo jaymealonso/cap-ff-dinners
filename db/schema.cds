@@ -6,37 +6,41 @@ using {
 
 namespace jan.ff.dinner;
 
-type Gender : String enum {
-    Male;
-    Female;
-    Other;
+entity Genders : sap.common.CodeList {
+    key code : String enum {
+            Male = 'M';
+            Female = 'F';
+            Other = 'O';
+        };
+        name : localized String;
 }
 
-entity Countries : sap.common.Countries {
-    emoji : String;
+entity Countries : sap.common.CodeList {
+    key code : String           @title: '{i18n>CountryCode}';
+        name : localized String @title: '{i18n>CountryName}';
 }
 
 entity Users : cuid, managed {
-    name    : String;
-    birth   : Date;
-    email   : String;
-    gender  : Gender;
-    country : Association to Countries;
-    picture : String;
+    name    : String                   @title: '{i18n>UserName}';
+    birth   : Date                     @title: '{i18n>Birth}';
+    email   : String                   @title: '{i18n>Email}';
+    gender  : Association to Genders   @title: '{i18n>Gender}';
+    country : Association to Countries @title: '{i18n>Country}';
+    picture : String                   @title: '{i18n>Picture}';
     events  : Association to many Users_Events
-                  on events.Users_ID = $self;
+                  on events.users = $self;
 };
 
 entity Users_Events {
-    key Users_ID  : Association to Users;
-    key Events_ID : Association to Events;
+    key users  : Association to Users;
+    key events : Association to Events;
 }
 
 entity Events : cuid, managed {
-    title      : localized String;
-    is_dinnner : Boolean;
-    date       : DateTime;
-    location   : String;
-    users      : Association to many Users_Events
-                     on users.Events_ID = $self;
+    title      : localized String @title: '{i18n>EventTitle}';
+    is_dinnner : Boolean          @title: '{i18n>IsDinner}';
+    date       : DateTime         @title: '{i18n>EventDate}';
+    location   : String           @title: '{i18n>Location}';
+    users      : Composition of many Users_Events
+                     on users.events = $self;
 }

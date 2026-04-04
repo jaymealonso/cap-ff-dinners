@@ -1,8 +1,9 @@
 using {
-    jan.ff.dinner.Users     as Users,
-    jan.ff.dinner.Events    as Events,
-    jan.ff.dinner.Countries as Countries
-} from '../db/schema';
+    jan.ff.dinner.Users        as Users,
+    jan.ff.dinner.Events       as Events,
+    jan.ff.dinner.Users_Events as Users_Events,
+    jan.ff.dinner.Countries    as Countries
+} from '../../db/schema';
 
 
 annotate Countries with @(
@@ -10,11 +11,7 @@ annotate Countries with @(
 UI: {LineItem: [
     {Value: code},
     {Value: name},
-    {Value: emoji},
-], }) {
-    emoji @title: '{i18n>Emoji}'
-};
-
+], });
 
 // annotation for listview
 annotate Users with @(
@@ -35,21 +32,13 @@ annotate Users with @(
         ],
         LineItem       : [
             {Value: name},
-            {Value: gender},
-            {Value: country.emoji},
+            {Value: gender.name},
+            {Value: country.name},
             {Value: birth},
             {Value: email},
         ],
-
-
     }
-) {
-    name    @title: '{i18n>UserName}';
-    gender  @title: '{i18n>Genre}';
-    birth   @title: '{i18n>Birth}';
-    email   @title: '{i18n>Email}';
-    picture @title: '{i18n>Picture}';
-};
+);
 
 // annotation for objectpage
 annotate Users with @(UI: {
@@ -68,7 +57,7 @@ annotate Users with @(UI: {
             },
             {
                 $Type: 'UI.DataField',
-                Value: gender,
+                Value: gender_code,
             },
             {
                 $Type: 'UI.DataField',
@@ -81,6 +70,10 @@ annotate Users with @(UI: {
             {
                 $Type: 'UI.DataField',
                 Value: picture
+            },
+            {
+                $Type: 'UI.DataField',
+                Value: country_code
             },
             {
                 $Type: 'UI.DataField',
@@ -101,6 +94,7 @@ annotate Events with @(
             TypeNamePlural: '{i18n>Events}',
         },
 
+
         SelectionFields: [
             title,
             date,
@@ -116,6 +110,15 @@ annotate Events with @(
     }
 );
 
+
+annotate Users_Events with @(UI: {LineItem: [
+    {Value: users_ID},
+    {Value: users.name},
+    {Value: users.country},
+    {Value: users.birth},
+
+], });
+
 // annotation for objectpage
 annotate Events with @(UI: {
     Facets                        : [
@@ -128,9 +131,8 @@ annotate Events with @(UI: {
             $Type : 'UI.ReferenceFacet',
             Label : '{i18n>Members}',
             Target: 'users/@UI.LineItem',
-            ID    : 'users',
 
-        }
+        },
     ],
 
     FieldGroup #GeneralInformation: {

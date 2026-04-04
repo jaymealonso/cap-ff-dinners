@@ -1,18 +1,13 @@
 using {jan.ff.dinner as my} from '../db/schema';
 
-service CatalogService @(odata: '/browse') {
-    entity Users  as
-        projection on my.Users {
-            *
-        };
+service CatalogService @(odata: '/admin') {
 
-    entity Events as
-        projection on my.Events {
-            *
-        };
-}
+    @requires: 'admin'
+    entity Users  as projection on my.Users;
 
+    @requires: 'admin'
+    entity Events as projection on my.Events;
 
-extend service CatalogService with {
-    action createEventGroups();
+    @requires: 'admin'
+    action createEventGroups(date: Date);
 }
