@@ -1,9 +1,9 @@
 using {
-    jan.ff.dinner.Users        as Users,
-    jan.ff.dinner.Events       as Events,
-    jan.ff.dinner.Users_Events as Users_Events,
-    jan.ff.dinner.Countries    as Countries,
-} from '../../db/schema';
+    AdminService.Users,
+    AdminService.Events,
+    AdminService.Users_Events,
+    AdminService.Countries,
+} from '../../srv/adminService';
 
 annotate Countries with @(
 

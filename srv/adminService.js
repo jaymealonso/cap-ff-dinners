@@ -1,8 +1,6 @@
 const cds = require('@sap/cds')
-const { INSERT } = require('@sap/cds/lib/ql/cds-ql')
 
-
-class CatalogService extends cds.ApplicationService {
+class AdminService extends cds.ApplicationService {
     init() {
 
         this.on('createEventGroups', async res => {
@@ -15,7 +13,7 @@ class CatalogService extends cds.ApplicationService {
                 if (!acc[groupIndex]) {
                     acc[groupIndex] = []; // Cria um novo grupo a cada 6 elementos
                 }
-                acc[groupIndex].push({ "users_ID": user.ID });
+                acc[groupIndex].push({ "users_userID": user.userID });
                 return acc;
             }, []);
 
@@ -40,4 +38,4 @@ class CatalogService extends cds.ApplicationService {
 
 }
 
-module.exports = CatalogService
+module.exports = AdminService
