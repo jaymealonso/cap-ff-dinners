@@ -1,0 +1,232 @@
+@server=http://localhost:4004/odata/v4
+@username=romerito
+@password=123456
+
+
+### Users
+# @name Users_GET
+GET {{server}}/admin/Users
+Authorization: Basic {{username}}:{{password}}
+
+
+### Users Drafts GET
+# @name Users_Drafts_GET
+GET {{server}}/admin/Users?$filter=(IsActiveEntity eq false)
+Authorization: Basic {{username}}:{{password}}
+
+
+### Users Draft POST
+# @name Users_Draft_POST
+POST {{server}}/admin/Users
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
+
+{
+  "name": "name-27340498",
+  "birth": "2016-07-05",
+  "email": "email-27340498",
+  "gender": {
+    "code": "O"
+  },
+  "country": {
+    "code": "Countries-27159168"
+  },
+  "picture": "picture-27340498",
+  "createdAt": "2021-12-09T00:00:00.000Z",
+  "createdBy": "createdBy.ga02a@example.org",
+  "modifiedAt": "2000-04-14T00:00:00.000Z",
+  "modifiedBy": "modifiedBy.ga02a@example.com"
+}
+
+
+### Result from POST request above
+@draftID={{Users_Draft_POST.response.body.$.ID}}
+
+
+### Users Draft PATCH
+# @name Users_Draft_Patch
+PATCH {{server}}/admin/Users(ID={{draftID}},IsActiveEntity=false)
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
+
+{
+  "name": "name-27340498",
+  "birth": "2016-07-05",
+  "email": "email-27340498",
+  "gender": {
+    "code": "O"
+  },
+  "country": {
+    "code": "Countries-27159168"
+  },
+  "picture": "picture-27340498",
+  "createdAt": "2021-12-09T00:00:00.000Z",
+  "createdBy": "createdBy.ga02a@example.org",
+  "modifiedAt": "2000-04-14T00:00:00.000Z",
+  "modifiedBy": "modifiedBy.ga02a@example.com"
+}
+
+
+### Users Draft Prepare
+# @name Users_Draft_Prepare
+POST {{server}}/admin/Users(ID={{draftID}},IsActiveEntity=false)/AdminService.draftPrepare
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
+
+{}
+
+
+### Users Draft Activate
+# @name Users_Draft_Activate
+POST {{server}}/admin/Users(ID={{draftID}},IsActiveEntity=false)/AdminService.draftActivate
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
+
+{}
+
+
+### Genders
+# @name Genders_GET
+GET {{server}}/admin/Genders
+Authorization: Basic {{username}}:{{password}}
+
+
+### Countries
+# @name Countries_GET
+GET {{server}}/admin/Countries
+Authorization: Basic {{username}}:{{password}}
+
+
+### UsersEvents
+# @name UsersEvents_GET
+GET {{server}}/admin/UsersEvents
+Authorization: Basic {{username}}:{{password}}
+
+
+### UsersEvents
+# @name UsersEvents_POST
+POST {{server}}/admin/UsersEvents
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
+
+{
+  "users": {
+    "ID": "27340498-2541-4387-9d8b-43bc260948f2"
+  }
+}
+
+
+### UsersEvents
+# @name UsersEvents_PATCH
+PATCH {{server}}/admin/UsersEvents(users=[object Object],events=[object Object])
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
+
+{
+  "users": {
+    "ID": "27340498-2541-4387-9d8b-43bc260948f2"
+  }
+}
+
+
+### UsersEvents
+# @name UsersEvents_DELETE
+DELETE {{server}}/admin/UsersEvents(users=[object Object],events=[object Object])
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
+
+
+### Events
+# @name Events_GET
+GET {{server}}/admin/Events
+Authorization: Basic {{username}}:{{password}}
+
+
+### Events Drafts GET
+# @name Events_Drafts_GET
+GET {{server}}/admin/Events?$filter=(IsActiveEntity eq false)
+Authorization: Basic {{username}}:{{password}}
+
+
+### Events Draft POST
+# @name Events_Draft_POST
+POST {{server}}/admin/Events
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
+
+{
+  "title": "title-15155162",
+  "is_dinnner": true,
+  "date": "2022-07-04T00:00:00.000Z",
+  "location": "location-15155162",
+  "users": [
+    {
+      "users": {
+        "ID": "27340498-2541-4387-9d8b-43bc260948f2"
+      }
+    }
+  ],
+  "createdAt": "2020-06-14T00:00:00.000Z",
+  "createdBy": "createdBy.90tsq@example.com",
+  "modifiedAt": "2004-03-19T00:00:00.000Z",
+  "modifiedBy": "modifiedBy.90tsq@example.com"
+}
+
+
+### Result from POST request above
+@draftID={{Events_Draft_POST.response.body.$.ID}}
+
+
+### Events Draft PATCH
+# @name Events_Draft_Patch
+PATCH {{server}}/admin/Events(ID={{draftID}},IsActiveEntity=false)
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
+
+{
+  "title": "title-15155162",
+  "is_dinnner": true,
+  "date": "2022-07-04T00:00:00.000Z",
+  "location": "location-15155162",
+  "users": [
+    {
+      "users": {
+        "ID": "27340498-2541-4387-9d8b-43bc260948f2"
+      }
+    }
+  ],
+  "createdAt": "2020-06-14T00:00:00.000Z",
+  "createdBy": "createdBy.90tsq@example.com",
+  "modifiedAt": "2004-03-19T00:00:00.000Z",
+  "modifiedBy": "modifiedBy.90tsq@example.com"
+}
+
+
+### Events Draft Prepare
+# @name Events_Draft_Prepare
+POST {{server}}/admin/Events(ID={{draftID}},IsActiveEntity=false)/AdminService.draftPrepare
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
+
+{}
+
+
+### Events Draft Activate
+# @name Events_Draft_Activate
+POST {{server}}/admin/Events(ID={{draftID}},IsActiveEntity=false)/AdminService.draftActivate
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
+
+{}
+
+
+### createEventGroups
+# @name createEventGroups_POST
+POST {{server}}/admin/createEventGroups
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
+
+{
+  "date": "2006-03-26",
+  "time": "22:59:53"
+}

@@ -1,9 +1,9 @@
 using {
-    jan.ff.dinner.Users        as Users,
-    jan.ff.dinner.Events       as Events,
-    jan.ff.dinner.Users_Events as Users_Events,
-    jan.ff.dinner.Countries    as Countries,
-} from '../../db/schema';
+    AdminService.Users,
+    AdminService.Events,
+    AdminService.UserGroups,
+    AdminService.Countries,
+} from '../../srv/adminService';
 
 annotate Countries with @(
 
@@ -114,7 +114,7 @@ annotate Events with @(
 );
 
 
-annotate Users_Events with @(UI: {LineItem: [
+annotate UserGroups with @(UI: {LineItem: [
     {Value: users_ID},
     {Value: users.name},
     {Value: users.country},

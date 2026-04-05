@@ -5,16 +5,27 @@
     "@sap/cds": "^9"
   },
   "devDependencies": {
-    "@cap-js/sqlite": "^2"
+    "@cap-js/sqlite": "^2",
+    "@cap-js/cds-test": "^0"
   },
   "scripts": {
     "start": "cds-serve",
-    "debug": "cds watch --inspect"
+    "dev": "cds watch",
+    "debug": "cds watch --inspect",
+    "test": "node --test"
   },
   "private": true,
   "cds": {
     "requires": {
-      "auth": "mocked"
+      "auth": {
+        "kind": "mocked",
+        "users": {
+          "romerito": {
+            "password": "123456",
+            "roles": ["Admin"]
+          }
+        }
+      }
     }
   }
 }
