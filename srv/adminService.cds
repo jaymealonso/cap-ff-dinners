@@ -11,15 +11,19 @@ service AdminService @(requires: 'authenticated-user') {
     ]) as projection on dinner.Users;
 
     entity Events @(restrict: [
-        { grant: ['READ','WRITE'], to: 'Admin' },
-        { grant: 'READ', where: (usersEvents.users.userID = $user) }
+        { grant: ['READ','WRITE'], to: 'Admin' }
     ]) as projection on dinner.Events;
 
-    @readonly
-    entity Users_Events @(restrict: [
+    entity EventGroups @(restrict: [
         { grant: ['READ','WRITE'], to: 'Admin' },
-        { grant: 'READ', where: (users.userID = $user) }
-    ]) as projection on dinner.Users_Events;
+        { grant: 'READ', where: (users.user.userID = $user) }
+    ]) as projection on dinner.EventGroups;
+
+    @readonly
+    entity UserGroups @(restrict: [
+        { grant: ['READ','WRITE'], to: 'Admin' },
+        { grant: 'READ', where: (user.userID = $user) }
+    ]) as projection on dinner.UserGroups;
 
     @readonly
     entity Countries as projection on sap.Countries;

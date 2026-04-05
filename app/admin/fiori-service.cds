@@ -1,7 +1,7 @@
 using {
     AdminService.Users,
     AdminService.Events,
-    AdminService.Users_Events,
+    AdminService.UserGroups,
     AdminService.Countries,
 } from '../../srv/adminService';
 
@@ -114,7 +114,7 @@ annotate Events with @(
 );
 
 
-annotate Users_Events with @(UI: {LineItem: [
+annotate UserGroups with @(UI: {LineItem: [
     {Value: users_ID},
     {Value: users.name},
     {Value: users.country},

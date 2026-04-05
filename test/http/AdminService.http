@@ -97,15 +97,15 @@ GET {{server}}/admin/Countries
 Authorization: Basic {{username}}:{{password}}
 
 
-### Users_Events
-# @name Users_Events_GET
-GET {{server}}/admin/Users_Events
+### UsersEvents
+# @name UsersEvents_GET
+GET {{server}}/admin/UsersEvents
 Authorization: Basic {{username}}:{{password}}
 
 
-### Users_Events
-# @name Users_Events_POST
-POST {{server}}/admin/Users_Events
+### UsersEvents
+# @name UsersEvents_POST
+POST {{server}}/admin/UsersEvents
 Content-Type: application/json
 Authorization: Basic {{username}}:{{password}}
 
@@ -116,9 +116,9 @@ Authorization: Basic {{username}}:{{password}}
 }
 
 
-### Users_Events
-# @name Users_Events_PATCH
-PATCH {{server}}/admin/Users_Events(users=[object Object],events=[object Object])
+### UsersEvents
+# @name UsersEvents_PATCH
+PATCH {{server}}/admin/UsersEvents(users=[object Object],events=[object Object])
 Content-Type: application/json
 Authorization: Basic {{username}}:{{password}}
 
@@ -129,9 +129,9 @@ Authorization: Basic {{username}}:{{password}}
 }
 
 
-### Users_Events
-# @name Users_Events_DELETE
-DELETE {{server}}/admin/Users_Events(users=[object Object],events=[object Object])
+### UsersEvents
+# @name UsersEvents_DELETE
+DELETE {{server}}/admin/UsersEvents(users=[object Object],events=[object Object])
 Content-Type: application/json
 Authorization: Basic {{username}}:{{password}}
 
@@ -227,6 +227,6 @@ Content-Type: application/json
 Authorization: Basic {{username}}:{{password}}
 
 {
-  "date": "2005-03-26",
+  "date": "2006-03-26",
   "time": "22:59:53"
 }
