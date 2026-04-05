@@ -1,35 +1,36 @@
-const cds = require('@sap/cds')
+const cds = require('@sap/cds');
 
 class AdminService extends cds.ApplicationService {
     init() {
 
+        const { Users, Events, EventGroups, UsersEvents } = cds.entities;
+
         this.on('createEventGroups', async res => {
+            const { date, time } = res.data;
+            
+            const users = await SELECT.from(Users).columns('userID');
 
-            let { date, time } = res.data
-            let users = await SELECT.from`Users`
-
-            const grouped = users.reduce((acc, user, index) => {
+            const groupedUsers = users.reduce((acc, user, index) => {
                 const groupIndex = Math.floor(index / 6);
                 if (!acc[groupIndex]) {
                     acc[groupIndex] = []; // Cria um novo grupo a cada 6 elementos
                 }
-                acc[groupIndex].push({ "users_userID": user.userID });
+                acc[groupIndex].push({
+                    user_userID: user.userID
+                });
                 return acc;
             }, []);
 
-            const aEvents = grouped.map(grp => {
-                return {
-                    "title": `Event create day ${date}, time ${time}`,
-                    "is_dinner": true,
-                    "date": date,
-                    "users": grp
-                }
-            })
+            const eventGroups = groupedUsers.map( users => ({ users }) );
 
-            const { result } = await INSERT
-                .into(`jan.ff.dinner.Events`)
-                .entries(aEvents)
+            const [ events ] = await INSERT.into(Events).entries({
+                title: `Event create day ${date}, time ${time}`,
+                is_dinner: true,
+                date,
+                groups: eventGroups
+            });
 
+            return
         })
 
         // Delegate requests to the underlying generic service
