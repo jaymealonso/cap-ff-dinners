@@ -1,162 +1,56 @@
 using {
-    jan.ff.dinner.Users        as Users,
-    jan.ff.dinner.Events       as Events,
-    jan.ff.dinner.Users_Events as Users_Events,
-    jan.ff.dinner.Countries    as Countries,
+    jan.ff.dinner.Users_Events            as Users_Events,
+    jan.ff.dinner.Countries               as Countries,
+    jan.ff.dinner.Genders                 as Genders,
+    jan.ff.dinner.Users_Questions_Answers as Users_Questions_Answers
 } from '../../db/schema';
 
-annotate Countries with @(
 
-UI: {LineItem: [
+// Listview
+annotate Genders with @(UI: {
+
+    LineItem      : [
+        {Value: code},
+        {Value: name},
+    ],
+    Identification: [{Value: code}],
+
+}) {
+
+
+}
+
+
+annotate Countries with @(UI: {LineItem: [
     {Value: code},
     {Value: name},
 ], });
 
-// annotation for listview
-annotate Users with @(
-    odata.draft.enabled,
-
-    UI: {
-        HeaderInfo     : {
-            $Type         : 'UI.HeaderInfoType',
-            TypeName      : '{i18n>User}',
-            TypeNamePlural: '{i18n>Users}',
-        },
-
-        SelectionFields: [
-            ID,
-            name,
-            email,
-            gender,
-        ],
-        LineItem       : [
-            {Value: name},
-            {Value: gender.name},
-            {Value: country.name},
-            {Value: birth},
-            {Value: email},
-        ],
-    }
-);
-
-// annotation for objectpage
-annotate Users with @(UI: {
-    Facets                        : [{
-        $Type : 'UI.ReferenceFacet',
-        Label : 'Info',
-        Target: '@UI.FieldGroup#GeneralInformation',
-    }],
-
-    FieldGroup #GeneralInformation: {
-        $Type: 'UI.FieldGroupType',
-        Data : [
-            {
-                $Type: 'UI.DataField',
-                Value: name,
-            },
-            {
-                $Type: 'UI.DataField',
-                Value: gender_code,
-            },
-            {
-                $Type: 'UI.DataField',
-                Value: birth
-            },
-            {
-                $Type: 'UI.DataField',
-                Value: email
-            },
-            {
-                $Type: 'UI.DataField',
-                Value: picture
-            },
-            {
-                $Type: 'UI.DataField',
-                Value: country_code
-            },
-            {
-                $Type: 'UI.DataField',
-                Value: country.emoji
-            }
-        ]
+annotate Users_Questions_Answers @(UI: {LineItem: [
+    {Value: question.index},
+    {
+        Value                  : question.text,
+        ![@Common.FieldControl]: #ReadOnly
     },
-});
-
-// Listview
-annotate Events with @(
-    odata.draft.enabled,
-
-    UI: {
-        HeaderInfo     : {
-            $Type         : 'UI.HeaderInfoType',
-            TypeName      : '{i18n>Event}',
-            TypeNamePlural: '{i18n>Events}',
-        },
-
-        SelectionFields: [
-            title,
-            date,
-            is_dinner
-        ],
-
-        LineItem       : [
-            {
-                $Type : 'UI.DataFieldForAction',
-                Label : 'Create Groups',
-                Action: 'CatalogService.EntityContainer/createEventGroups',
-            },
-            {Value: title},
-            {Value: date},
-            {Value: is_dinnner},
-            {Value: location},
-        ],
+    {
+        Value                  : answer,
+        ![@Common.FieldControl]: #Mandatory
     }
-);
-
+], });
 
 annotate Users_Events with @(UI: {LineItem: [
     {Value: users_ID},
-    {Value: users.name},
-    {Value: users.country},
-    {Value: users.birth},
+    {
+        Value                  : users.name,
+        ![@Common.FieldControl]: #ReadOnly
+    },
+    {
+        Value                  : users.country.name,
+        ![@Common.FieldControl]: #ReadOnly
+    },
+    {
+        Value                  : users.birth,
+        ![@Common.FieldControl]: #ReadOnly
+    },
 
 ], });
-
-// annotation for objectpage
-annotate Events with @(UI: {
-    Facets                        : [
-        {
-            $Type : 'UI.ReferenceFacet',
-            Label : '{i18n>Info}',
-            Target: '@UI.FieldGroup#GeneralInformation',
-        },
-        {
-            $Type : 'UI.ReferenceFacet',
-            Label : '{i18n>Members}',
-            Target: 'users/@UI.LineItem',
-
-        },
-    ],
-
-    FieldGroup #GeneralInformation: {
-        $Type: 'UI.FieldGroupType',
-        Data : [
-            {
-                $Type: 'UI.DataField',
-                Value: title,
-            },
-            {
-                $Type: 'UI.DataField',
-                Value: date,
-            },
-            {
-                $Type: 'UI.DataField',
-                Value: is_dinnner
-            },
-            {
-                $Type: 'UI.DataField',
-                Value: location
-            },
-        ]
-    },
-});

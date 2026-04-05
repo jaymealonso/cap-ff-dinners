@@ -5,6 +5,26 @@ const { INSERT } = require('@sap/cds/lib/ql/cds-ql')
 class CatalogService extends cds.ApplicationService {
     init() {
 
+        const { Users, Users_Questions_Answers } = this.entities;
+
+        this.on("CREATE", Users.drafts, async (req, next) => {
+            const questions = await SELECT.from`Questions`
+            const aQuestions = questions.map(m => {
+                return {
+                    "DraftAdministrativeData_DraftUUID": req.data.DraftAdministrativeData_DraftUUID,
+                    "user_ID": req.data.ID,
+                    "question_index": m.index,
+                    "answer": 1
+                }
+            })
+
+            await INSERT
+                .into(Users_Questions_Answers.drafts)
+                .entries(aQuestions)
+
+            return next()
+        })
+
         this.on('createEventGroups', async res => {
 
             let { date, time } = res.data
@@ -28,7 +48,7 @@ class CatalogService extends cds.ApplicationService {
                 }
             })
 
-            const { result } = await INSERT
+            await INSERT
                 .into(`jan.ff.dinner.Events`)
                 .entries(aEvents)
 
