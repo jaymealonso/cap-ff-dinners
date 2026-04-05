@@ -5,15 +5,15 @@ axios.defaults.auth = { username: 'alice', password: '' }
 
 describe('OData APIs', () => {
 
-  it('serves CatalogService.Users', async () => {
-    const { data } = await GET `/admin/CatalogService.Users ${{ params: { $select: 'ID,name' } }}`
+  it('serves AdminService.Users', async () => {
+    const { data } = await GET `/odata/v4/admin/AdminService.Users ${{ params: { $select: 'ID,name' } }}`
     expect(data.value).to.containSubset([
       {"ID":"16652436-617b-45a0-ae5b-b5d4a9890e27","name":"name-16652436"},
     ])
   })
 
   it('executes createEventGroups', async () => {
-    const { data } = await POST `/admin/createEventGroups ${
+    const { data } = await POST `/odata/v4/admin/createEventGroups ${
       {"date":"2007-09-10","time":"22:59:53"}
     }`
     // TODO finish this test

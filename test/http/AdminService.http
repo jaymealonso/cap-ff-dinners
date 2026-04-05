@@ -1,6 +1,6 @@
-@server=http://localhost:4004
-@username=alice
-@password=
+@server=http://localhost:4004/odata/v4
+@username=romerito
+@password=123456
 
 
 ### Users
