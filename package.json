@@ -2,17 +2,28 @@
   "name": "cap-ff-dinner",
   "version": "1.0.0",
   "dependencies": {
-    "@sap/cds": "^9"
+    "@cap-js/hana": "^2",
+    "@sap/cds": "^9",
+    "@sap/ux-ui5-tooling": "^1.22.0",
+    "@sap/xssec": "^4"
   },
   "devDependencies": {
+    "@cap-js/cds-test": "^0",
     "@cap-js/sqlite": "^2",
-    "@cap-js/cds-test": "^0"
+    "@sap/cds-dk": ">=8",
+    "cds-plugin-ui5": "^0.13.0",
+    "rimraf": "^5.0.5",
+    "mbt": "^1.2.29"
   },
   "scripts": {
     "start": "cds-serve",
     "dev": "cds watch",
     "debug": "cds watch --inspect",
-    "test": "node --test"
+    "test": "node --test",
+    "watch-admin.users": "cds watch --open admin.users/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "undeploy": "cf undeploy cap-ff-dinner --delete-services --delete-service-keys --delete-service-brokers",
+    "build": "rimraf resources mta_archives && mbt build --mtar archive",
+    "deploy": "cf deploy mta_archives/archive.mtar --retries 1"
   },
   "private": true,
   "cds": {
@@ -22,10 +33,23 @@
         "users": {
           "romerito": {
             "password": "123456",
-            "roles": ["Admin"]
+            "roles": [
+              "Admin"
+            ]
           }
+        }
+      },
+      "[production]": {
+        "auth": {
+          "kind": "xsuaa"
         }
       }
     }
-  }
+  },
+  "workspaces": [
+    "app/*"
+  ],
+  "sapux": [
+    "app/admin.users"
+  ]
 }

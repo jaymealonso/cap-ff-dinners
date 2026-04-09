@@ -1,0 +1,15 @@
+{
+  "routes": [
+    {
+      "source": "^/(.*)$",
+      "target": "$1",
+      "destination": "srv-api",
+      "csrfProtection": true
+    }
+  ],
+  "welcomeFile": "/adminusers",
+  "logout": {
+    "logoutEndpoint": "/logout",
+    "logoutPage": "/"
+  }
+}
