@@ -1,4 +1,4 @@
-code,name,descr
+code,name
 ad,Andorra
 ae,United Arab Emirates
 af,Afghanistan
@@ -202,7 +202,7 @@ sc,Seychelles
 sd,Sudan
 se,Sweden
 sg,Singapore
-sh,Saint Helena,Ascension and Tristan da Cunha
+sh,Saint Helena
 si,Slovenia
 sj,Svalbard and Jan Mayen
 sk,Slovakia

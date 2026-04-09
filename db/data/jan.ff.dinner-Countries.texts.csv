@@ -1,4 +1,4 @@
-code,locale,name,descr
+code,locale,name
 ad,en,Andorra
 ae,en,United Arab Emirates
 af,en,Afghanistan
@@ -202,7 +202,7 @@ sc,en,Seychelles
 sd,en,Sudan
 se,en,Sweden
 sg,en,Singapore
-sh,en,Saint Helena,en,Ascension and Tristan da Cunha
+sh,en,Saint Helena
 si,en,Slovenia
 sj,en,Svalbard and Jan Mayen
 sk,en,Slovakia
@@ -508,7 +508,7 @@ sc,pt,Seicheles
 sd,pt,Sudão
 se,pt,Suécia
 sg,pt,Singapura
-sh,pt,Santa Helena,Ascensão e Tristão da Cunha
+sh,pt,Santa Helena
 si,pt,Eslovénia
 sj,pt,Svalbard e Jan Mayen
 sk,pt,Eslováquia
